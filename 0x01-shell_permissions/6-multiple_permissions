@@ -1,3 +1,11 @@
 #!/bin/bash
+<<<<<<< HEAD
 chmod ug+x, o+r hello
 
+=======
+<<<<<<< HEAD
+chmod ug+x, o+r hello
+=======
+chmod 554 hello
+>>>>>>> a2e3d92764546ccd4401a247a77c7fe876b2491a
+>>>>>>> 050e0c0231d4c723d08097e320de3e12805eca18
