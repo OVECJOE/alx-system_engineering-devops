@@ -12,4 +12,6 @@
 
 *5-listfilesdigitonly - list the directory contents including hidden files and numerical user and group IDs displayed*.
 
-*6-firstdirectory - creates a directory named `holberton` in the `/tmp/` directory*
+*6-firstdirectory - creates a directory named `holberton` in the `/tmp/` directory*.
+
+*7-movethatfile - moves the file `betty` from `/tmp/` to `/tmp/holberton`*.
