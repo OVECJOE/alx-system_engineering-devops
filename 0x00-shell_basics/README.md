@@ -17,3 +17,5 @@
 *7-movethatfile - moves the file `betty` from `/tmp/` to `/tmp/holberton`*.
 
 *8-firstdelete - deletes the file `betty` in the `/tmp/holberton` directory created previously*.
+
+*9-firstdirdeletion - deletes the `holberton` directory that is in the `/tmp/` directory*.
