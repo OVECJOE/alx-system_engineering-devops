@@ -11,3 +11,5 @@
 *4-listmorefiles - list hidden files in long format*.
 
 *5-listfilesdigitonly - list the directory contents including hidden files and numerical user and group IDs displayed*.
+
+*6-firstdirectory - creates a directory named `holberton` in the `/tmp/` directory*
