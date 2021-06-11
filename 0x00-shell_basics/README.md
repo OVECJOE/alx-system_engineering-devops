@@ -1,5 +1,5 @@
 # alx-system_engineering-devops #
-#### Contains scripts such as ####
+#### Contains the following scripts: ####
 *0-current_working_directory - outputs the absolute path of current working directory*.
 
 *1-listit - prints out the contents of the current directory*.
