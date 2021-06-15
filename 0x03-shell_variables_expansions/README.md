@@ -26,3 +26,4 @@
 
 ***12-combinations** - prints all possible combinations of two letters, except `oo`.*
 
+***13-print_float** - prints a number `NUM` with two decimal places, followed by a new line.*
