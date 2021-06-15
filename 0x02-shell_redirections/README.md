@@ -40,3 +40,5 @@
 ***17-hidethatword** - displays all the lines in the file `/etc/passwd` that do not contain the pattern "bin".*
 
 ***18-letteronly** - displays all lines of the file `/etc/ssh/sshd_config` starting with a letter.*
+
+***19-AZ** - replaces all the characters `A` and `c` from the input to `z` and `e` respectively.*
