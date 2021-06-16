@@ -27,3 +27,7 @@
 ***12-combinations** - prints all possible combinations of two letters, except `oo`.*
 
 ***13-print_float** - prints a number `NUM` with two decimal places, followed by a new line.*
+
+***100-decimal_to_hexadecimal** - converts a number stored in the environment variable `DECIMAL` from decimal to hexadecimal.*
+
+***101-rot13** - encodes and decodes text using the rot13 encryption. Assume ASCII.*
