@@ -1,2 +1,2 @@
 #!/bin/bash
-sed -n '0~2 p'
+paste -d , - - | cut -d , -f 2
