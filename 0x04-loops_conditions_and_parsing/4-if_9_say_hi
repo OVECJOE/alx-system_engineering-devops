@@ -4,7 +4,7 @@
 i=1
 while ((i <= 10))
 do
-	echo "best School"
+	echo "Best School"
 
 	if [[ $i -eq 9 ]]
 	then
