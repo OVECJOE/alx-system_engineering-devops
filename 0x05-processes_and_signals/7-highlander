@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# A script that diplays what you see on the screen
+
+while true
+do
+	echo "To infinity and beyond"
+	sleep 2
+	trap 'echo "I am invincible"' SIGTERM
+done
