@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
 # prints a list of the current working directory
 
+<<<<<<< HEAD
 ps auxf
+=======
+ps aux
+>>>>>>> refs/remotes/origin/master
