@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # prints a list of the current working directory
 
-ps aux
+ps auxf
