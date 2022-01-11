@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 # Install NginX web server on the server, web-01
-apt update && apt install -y nginx
+apt-get update; apt-get -y install nginx
 ufw allow "Nginx HTTP"
-mkdir /etc/nginx/html
-echo "Hello World!" > /etc/nginx/html/index.html
+mkdir /var/www/html
+chmod =R 755 /var/www
+echo "Hello World!" > /var/www/html/index.html
 echo "server {
 listen 80 default_server;
 listen [::]:80 default_server;
@@ -11,5 +12,5 @@ root /etc/nginx/html;
 index index.html index.htm;
 }" > /etc/nginx/sites-available/default
 
-service nginx restart -y
+service nginx restart
 
