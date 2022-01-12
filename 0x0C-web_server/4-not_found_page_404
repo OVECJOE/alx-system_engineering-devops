@@ -2,10 +2,12 @@
 # Installs, configures, and starts the server
 apt-get update
 apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-mkdir -p /var/www/html/
-sudo chmod -R 755 /var/www
+ufw allow 'Nginx HTTP'
+mkdir -p /var/www/html /var/www/error
+chmod -R 755 /var/www
 echo 'Hello World!' > /var/www/html/index.html
+echo -e "Ceci n\x27est pas une page" > /var/www/error/404.html
+# the server's configuration
 SERVER_CONFIG=\
 "server {
 	listen 80 default_server;
@@ -19,10 +21,13 @@ SERVER_CONFIG=\
 	if (\$request_filename ~ redirect_me){
 		rewrite ^ https://github.com/OVECJOE permanent;
 	}
+	error_page 404 /404.html;
+	location = /404.html {
+		root /var/www/error/;
+		internal;
+	}
 }"
-
 bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-enabled/default"
-
 if [ "$(pgrep -c nginx)" -le 0 ]; then
 	service nginx start
 else
