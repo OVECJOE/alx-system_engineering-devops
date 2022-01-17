@@ -3,7 +3,7 @@
 # servers behind a load balancer.
 
 apt-get update
-apt-get install -y ngninx
+apt-get install -y nginx
 
 mkdir -p /var/www/html
 cd /var/www/html; touch index.html 404.html
