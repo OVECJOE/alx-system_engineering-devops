@@ -1,20 +1,53 @@
 #!/usr/bin/env bash
-# Configure server with: HAproxy version 1.5 or greater
-# Distributes request using roundrobin; sends traffic to servers: web-01 and web-02
+# Installs, configures, and starts the load balancer
+apt-get update
+apt-get -y install --no-install-recommends software-properties-common
+add-apt-repository -y ppa:vbernat/haproxy-2.4
+apt-get -y install haproxy
+# the load balancer's configuration
+DOMAIN_NAME='b3zaleel-alx.tech'
+INIT_FILE='/etc/default/haproxy'
+CONFIG_FILE='/etc/haproxy/haproxy.cfg'
+HAPROXY_LB_CONFIG=\
+"
+#--$DOMAIN_NAME-params-begin--
+backend $DOMAIN_NAME-backend
+	balance roundrobin
+	server web1 34.73.0.174:80 check
+	server web2 34.75.208.81:80 check
+frontend $DOMAIN_NAME-frontend
+	bind *:80
+	mode http
+	default_backend $DOMAIN_NAME-backend
+#--$DOMAIN_NAME-params-end--
+"
 
-CFG="\\\nlisten appname 0.0.0.0:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 338-web-01 35.229.54.225 check\n\tserver 338-web-02 35.231.225.251 check\n"
+[ -f "$INIT_FILE" ] || touch "$INIT_FILE"
+[ -f "$CONFIG_FILE" ] || touch "$CONFIG_FILE"
 
-sudo apt-get update
-sudo apt-get -y install nginx
-sudo apt-get install -y haproxy=1.5\*
+CONFIG_WORDS=$(grep -Eco "$DOMAIN_NAME-backend" < $CONFIG_FILE)
 
-# Make sure HAproxy can be managed via an init script
-sudo sed -i "s/ENABLED=0/ENABLED=1/" /etc/default/haproxy
+if [ "$(grep -Eco '^ENABLED=[01]$' < $INIT_FILE)" -gt 0 ]; then
+	sed -i 's/^ENABLED=0$/ENABLED=1/' "$INIT_FILE"
+else
+	echo 'ENABLED=1' >> $INIT_FILE
+fi
 
-# Backup original config file before attempt modifications
-sudo cp /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg.backup
+if [ "$CONFIG_WORDS" -eq 0 ]; then
+	echo -e "$HAPROXY_LB_CONFIG" >> $CONFIG_FILE
+else
+	start_tkn="#--$DOMAIN_NAME-params-begin--"
+	end_tkn="#--$DOMAIN_NAME-params-end--"
+	a=$(grep -onE "$start_tkn" < "$CONFIG_FILE" | cut -d : -f1)
+	b=$(grep -onE "$end_tkn" < "$CONFIG_FILE" | cut -d : -f1)
+	a=$((a - 1))
+	b=$((b + 1))
+	sed -i "$a,$b"d "$CONFIG_FILE"
+	echo -en "$HAPROXY_LB_CONFIG" >> $CONFIG_FILE
+fi
 
-# Configure to include roundrobin and two servers
-sudo sed -i "\$a $CFG" /etc/haproxy/haproxy.cfg
-
-sudo service haproxy start
+if [ "$(pgrep -c haproxy)" -le 0 ]; then
+	service haproxy start
+else
+	service haproxy restart
+fi
