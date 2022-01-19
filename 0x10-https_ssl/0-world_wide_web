@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Display info about subdomains
+# Usage: ./0-world_wide_web <domain> [<subdomain>]
+
+domain () {
+	line=$(dig "$2"."$1" | grep -A1 'ANSWER SECTION:' | tail -1)
+	echo "$2 $line" | awk '{print "The subdomain " $1 " is a " $5 " record and points to " $6}'
+}
+
+if [ "$#" == 1 ]
+then
+	domain "$1" "www"
+	domain "$1" "lb-01"
+	domain "$1" "web-01"
+	domain "$1" "web-02"
+elif [ "$#" == 2 ]
+then
+	domain "$1" "$2"
+fi
