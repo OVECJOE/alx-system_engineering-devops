@@ -3,9 +3,9 @@
 For a given employee ID, returns information about his/her TODO list progress,
 using an API.
 """
-import requests
-import json
 from sys import argv
+import json
+import requests
 
 URL = "https://jsonplaceholder.typicode.com"  # The API's URL
 
