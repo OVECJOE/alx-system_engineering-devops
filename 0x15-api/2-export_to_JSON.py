@@ -17,14 +17,14 @@ if __name__ == "__main__":
             t_resp = requests.get('{}/todos'.format(URL)).json()
             username = u_resp.get('username')
             todos = [t for t in t_resp if t.get('userId') == emp_id]
-            emp_dict, l = {}, []
+            emp_dict, tasklist = {}, []
             for t in todos:
                 title = t.get('title')
                 t_status = t.get('completed')
-                l.append({
+                tasklist.append({
                     "task": title,
                     "completed": t_status,
                     "username": username})
-            emp_dict[str(emp_id)] = l
+            emp_dict[str(emp_id)] = tasklist
             with open("{}.json".format(emp_id), "w") as f:
                 json.dump(emp_dict, f)
